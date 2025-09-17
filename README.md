@@ -22,7 +22,7 @@ Automate the integration of JSON files into CSV to **reduce manual workload** an
 
 | 🏁 **Sprint** | 📌 **Deliverables** | ⏳ **Deadline** |
 |---------------|----------------------|-----------------|
-| **Sprint 1**  | Documentation (SCRUM guide, JSON/CSV summaries, manual process, project overview) | day 15-17 September |
+| **Sprint 1**  | Documentation (SCRUM guide, JSON/CSV summaries, manual process, project overview) | 15-17 September |
 | **Sprint 2**  | GitHub repo, JSON reader, POJOs mapping, CSV writer, test cases | 18-19 September |
 | **Sprint 3**  | Configurable app (paths & fields), JavaDoc, final PDF report, MP4 demo | 18-19 September |
 | **Final Submission** | Integrated `.jar` application | End of Week  |
