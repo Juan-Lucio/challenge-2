@@ -45,14 +45,14 @@ Automate the integration of JSON files into CSV to **reduce manual workload** an
 
 ## 🗂️ Roadmap Breakdown by Sprint
 
-### 🔹 Sprint 1 (Week 1)
+### 🔹 Sprint 1 (15-17 September)
 - 📖 Research SCRUM, JSON, CSV.  
 - 📝 Interview Hortensia & document manual workflow.  
 - 📑 Write project overview.  
 
 ---
 
-### 🔹 Sprint 2 (Week 2)
+### 🔹 Sprint 2 (18-19 September )
 - 🔧 Create GitHub repo.  
 - 📂 Implement JSON reader.  
 - 🗂️ Map JSON → POJOs.  
@@ -61,7 +61,7 @@ Automate the integration of JSON files into CSV to **reduce manual workload** an
 
 ---
 
-### 🔹 Sprint 3 (Week 3)
+### 🔹 Sprint 3 (22-25 September)
 - ⚙️ Add config options (paths & fields).  
 - 📚 Write JavaDoc.  
 - 📰 Compile final PDF report.  
@@ -69,16 +69,8 @@ Automate the integration of JSON files into CSV to **reduce manual workload** an
 
 ---
 
-### 🔹 Final Submission (End of Week 3)
+### 🔹 Final Submission (26 September)
 - 📦 Package integrated app into `.jar`.  
 - 🏁 Deliver **final report** & **demo video**.  
-
----
-
-## ✅ Recommendations
-- 🔍 Use backlog as reference to keep scope aligned.  
-- 🛠️ Highlight **critical path** → JSON reader → mapping → CSV export → integration.  
-- 🔗 Show dependencies with connectors in Miro (e.g., CSV writing depends on JSON mapping).  
-- 🎯 Ensure each sprint ends with **partial deliverables** visible and testable.  
 
 ---
