@@ -74,3 +74,11 @@ Automate the integration of JSON files into CSV to **reduce manual workload** an
 - 🏁 Deliver **final report** & **demo video**.  
 
 ---
+
+## ✅ Recommendations
+- 🔍 Use backlog as reference to keep scope aligned.  
+- 🛠️ Highlight **critical path** → JSON reader → mapping → CSV export → integration.  
+- 🔗 Show dependencies with connectors in Miro (e.g., CSV writing depends on JSON mapping).  
+- 🎯 Ensure each sprint ends with **partial deliverables** visible and testable.  
+
+---
