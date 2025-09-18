@@ -1,99 +1,84 @@
-# 🎤 Presentation: SCRUM Basics & Data Formats (JSON & CSV)
+# Presentation: SCRUM Basics & Data Formats (JSON & CSV)
 
 ---
 
-## 📌 Slide 1 – Title
-**Project Context**  
-- Automation of JSON → CSV for University Scientometrics Department  
-- Developed under **SCRUM methodology**  
-- Focus: Reduce errors & accelerate report generation  
+## Slide 1 – Title
+**Automating Scientific Reports with SCRUM**  
+*From JSON to CSV in a University Research Context*  
 
 ---
 
-## 📌 Slide 2 – What is SCRUM?
-- An **Agile framework** for managing complex projects  
-- Based on **iteration (sprints)** and **incremental value delivery**  
-- Empowers **collaboration, adaptability, and transparency**  
+## Slide 2 – Why SCRUM?
+- Not just a methodology, but a way of working in **small, steady steps**  
+- Helps the team stay **organized, adaptable, and transparent**  
+- Perfect for projects where requirements may change as we learn  
 
 ---
 
-## 📌 Slide 3 – SCRUM Roles
-- 🧑‍💼 **Product Owner** → Defines vision, prioritizes backlog  
-- 🧑‍🤝‍🧑 **Scrum Team** → Developers delivering increments (Beatriz in this project)  
-- 👩‍⚖️ **Scrum Master** → Facilitates process, removes blockers  
+## Slide 3 – Key Roles in SCRUM
+- **Product Owner** → Brings the vision and decides priorities  
+- **Team** → Builds the solution step by step  
+- **Scrum Master** → Keeps things flowing, clears obstacles  
 
 ---
 
-## 📌 Slide 4 – SCRUM Events
-- 📅 **Sprint Planning** → Define goals & backlog items  
-- 🔄 **Daily Scrum** → 15-min standup for progress & blockers  
-- 📦 **Sprint Review** → Demonstrate increment to stakeholders  
-- 🪞 **Sprint Retrospective** → Identify improvements  
+## Slide 4 – The Rhythm of SCRUM
+- **Planning** → What can we achieve this sprint?  
+- **Daily Check-ins** → Quick sync on progress and blockers  
+- **Review** → Show what we’ve built so far  
+- **Retro** → What worked, what to improve next time  
 
 ---
 
-## 📌 Slide 5 – SCRUM Artifacts
-- 📋 **Product Backlog** → Ordered list of all requirements  
-- 📌 **Sprint Backlog** → Items selected for current sprint  
-- ✅ **Increment** → Working deliverable (e.g., working code, report, demo)  
+## Slide 5 – The Tools (Artifacts)
+- **Product Backlog** → The big list of everything we’d like to achieve  
+- **Sprint Backlog** → What we’re focusing on right now  
+- **Increment** → A piece of working value, not just theory  
 
 ---
 
-## 📌 Slide 6 – JSON: Overview
-- **JavaScript Object Notation** (lightweight data-interchange format)  
-- Structured as **key–value pairs**  
-- Easy for humans to read, easy for machines to parse  
-- Widely used in **APIs, data exchange, and storage**  
+## Slide 6 – JSON in Practice
+- A text format made of **keys and values**  
+- Flexible, supports lists and nested structures  
+- Common in APIs and modern apps → easy to integrate into code  
 
 ---
 
-## 📌 Slide 7 – JSON: Technical Characteristics
-- **Text-based** (UTF-8 encoding)  
-- Supports data types: string, number, boolean, array, object, null  
-- Allows **nested structures**  
+## Slide 7 – CSV in Practice
+- A plain table, rows and columns separated by commas  
+- Dead simple, but powerful for analysis  
+- Opens easily in Excel, Google Sheets, and BI tools  
 
 ---
 
-## 📌 Slide 8 – CSV: Overview
-- **Comma-Separated Values** (flat text format for tabular data)  
-- Each line = **record (row)**  
-- Fields separated by commas, semicolons, or tabs  
-- Widely supported by **Excel, databases, BI tools**  
+## Slide 8 – JSON vs. CSV
+| Aspect      | JSON | CSV |
+|-------------|------|-----|
+| Structure   | Nested, detailed | Flat, tabular |
+| Strength    | Data exchange | Reporting & analysis |
+| Weakness    | Harder to read manually | No schema, easy to misinterpret |
 
 ---
 
-## 📌 Slide 9 – CSV: Technical Characteristics
-- Simple structure: **rows & columns**  
-- Lacks schema → needs documentation for interpretation  
-- Requires escaping for quotes & special characters  
+## Slide 9 – Why Both Matter Here
+- Research data arrives in **JSON** (flexible but complex)  
+- Reports are needed in **CSV** (clear and shareable)  
+- Automating the conversion saves **time and reduces errors**  
 
 ---
 
-## 📌 Slide 10 – JSON vs CSV: Why Both Matter
-| Feature        | JSON (Input) | CSV (Output) |
-|----------------|--------------|--------------|
-| Structure      | Hierarchical, nested | Flat, tabular |
-| Readability    | Human + machine | Human + spreadsheet apps |
-| Use Case       | Data exchange (APIs, storage) | Reports, analytics |
-| Project Role   | Source format | Final report format |
+## Slide 10 – Connecting the Dots
+- SCRUM gives us the process → focus on value every sprint  
+- JSON/CSV are the technical formats we need to master  
+- Together they form a **bridge from raw data to meaningful reports**  
 
 ---
 
-## 📌 Slide 11 – Why SCRUM + JSON/CSV for This Project?
-- **SCRUM** → Iterative approach ensures deliverables each sprint  
-- **JSON** → Captures scientific data in flexible structure  
-- **CSV** → Standard format for reporting & analysis  
-- Combined → Enables an **automated, accurate, and maintainable** system  
-
----
-
-## 📌 Slide 12 – Conclusion
-- SCRUM provides the **methodological framework**  
-- JSON & CSV provide the **data foundation**  
-- Together they enable:  
-  - ⏱️ Faster integration  
-  - 📊 Reliable reports  
-  - 🚀 Scalable solution for the university  
+## Slide 11 – Wrap-Up
+- SCRUM = structure for teamwork  
+- JSON = raw research input  
+- CSV = clear, accessible output  
+- The project proves how **methodology + technol**
 
 📖 **Example**:  
 ```json
@@ -104,4 +89,4 @@
     {"title": "Data Processing", "year": 2024}
   ]
 }
-Esto es una línea de texto antes
+
