@@ -1,0 +1,154 @@
+# JSON to CSV Converter
+
+This project provides a **Java-based utility** for converting JSON files into CSV format.  
+It is designed to handle nested JSON structures by **flattening them** into key-value pairs (using dot notation for nested objects).  
+The project is implemented using **Jackson** for JSON parsing and **OpenCSV** for CSV writing.
+
+---
+
+## 📌 Features
+- **Command-Line Interface (CLI)** to specify input, output, delimiter, and interactive mode.
+- **Validation of JSON files** (existence, extension, readability, and syntax).
+- **Flattening of nested JSON objects** into a CSV-friendly structure.
+- **Safe CSV writing** with ordered headers and exclusive file creation.
+- **Configurable delimiters** (`,`, `;`, or `\t`).
+- **Error handling** with clear messages.
+
+---
+
+## 📂 Project Structure
+json-to-csv-converter/
+│── src/main/java/org/edu/university/converter/
+│ ├── MainApp.java # Application entry point (CLI handler)
+│ ├── FileValidator.java # Utility class for validating JSON files
+│ ├── JsonReader.java # Reads and flattens JSON into key-value maps
+│ ├── JsonToCsvConverter.java # Orchestrates JSON → CSV conversion
+│ ├── CsvWriter2.java # Writes flattened data into CSV format
+│
+│── pom.xml # Maven dependencies and build configuration
+│── README.md # Documentation (this file)
+
+---
+                                                                                             
+---
+
+## ⚙️ Requirements
+
+- **Java 17+**  
+- **Maven 3.8+**  
+- Internet connection to download dependencies.
+
+Dependencies:
+- `com.fasterxml.jackson.core:jackson-databind` → for JSON parsing.  
+- `com.opencsv:opencsv` → for CSV writing.  
+
+---
+
+## ▶️ How to Run
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/<your-username>/json-to-csv-converter.git
+cd json-to-csv-converter
+---
+
+Build with Maven
+mvn clean package
+
+---
+Run the Application
+java -cp target/json-to-csv-converter-1.0-SNAPSHOT.jar org.edu.university.converter.MainApp --input=data/input.json --output=data/output.csv --delimiter=;
+
+---
+
+
+Optional Flags
+
+--input=<path> → Path to input JSON file (required).
+
+--output=<path> → Path to output CSV file (default: output.csv).
+
+--delimiter=<char> → Separator (default: ,; options: ,, ;, \t).
+
+--no-prompt → Disable interactive mode.
+
+Example:
+
+java -cp target/json-to-csv-converter-1.0-SNAPSHOT.jar org.edu.university.converter.MainApp --input=sample.json --output=result.csv --delimiter=,
+---
+📘 JavaDoc Documentation
+---
+Each class and method in this project includes JavaDoc comments describing:
+
+The purpose of the class/method.
+
+Parameters with explanations.
+
+Return values and possible exceptions.
+
+You can generate JavaDoc with:
+
+mvn javadoc:javadoc
+
+
+The documentation will be available in:
+
+target/site/apidocs/index.html
+
+👥 GitHub Repository Setup
+
+Name your repository:
+
+json-to-csv-converter
+
+
+Include:
+
+All Java source code under src/main/java/.
+
+This README.md.
+
+A pom.xml file with dependencies.
+
+Grant access permissions so the Digital NAO team can review your work.
+---
+✅ Deliverables for Sprint
+---                                                                                             
+Source Code with JavaDoc included.
+
+Executable JAR built with Maven.
+
+README.md with usage instructions.
+
+JavaDoc documentation generated in /target/site/apidocs/.
+---
+📝 Notes
+---
+The converter does not overwrite existing CSV files by default. If the output file already exists, the program will throw an error.
+
+Arrays inside JSON are preserved as raw JSON strings for data integrity.
+
+Future improvements may include support for custom overwrite mode and stream-based conversion for large files.
+
+
+---
+
+
+
+
+                                                                                             
+
+
+
+
+                                                                                             
+
+                                                                                             
+
+
+
+                                                                                             
+
+                                                                                             
+                                                                                             
+                                                                                             
