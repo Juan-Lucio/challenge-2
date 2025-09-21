@@ -1,0 +1,3 @@
+"id","author","department","publication.title","publication.year","publication.journal","keywords","citations"
+"1","Beatriz Solórzano","Scientometrics","Data Integration in Higher Education","2023","Journal of Research Analytics","[""Java"",""JSON"",""CSV"",""Automation""]","15"
+"2","Juan Pérez","Scientometrics","Automation of Scientific Reports","2024","University Science Review","[""Scrum"",""Software Engineering""]","8"
