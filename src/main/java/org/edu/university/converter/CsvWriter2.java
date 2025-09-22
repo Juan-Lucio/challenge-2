@@ -9,24 +9,25 @@ import java.nio.file.*;
 import java.util.*;
 
 /**
- * Escribe una lista de filas aplanadas en un archivo CSV.
+ * CsvWriter2 is responsible for writing a list of flattened JSON rows into a CSV file.
+ * Uses OpenCSV for safe and structured CSV writing.
  */
 public class CsvWriter2 {
 
     /**
-     * Escribe CSV con el delimitador especificado.
+     * Writes a CSV file with the specified delimiter.
      *
-     * @param outputPath ruta del CSV de salida
-     * @param rows lista de filas aplanadas (LinkedHashMap para orden)
-     * @param delimiter carácter separador (ejemplo: ',' o ';' o '\t')
-     * @throws IOException si ocurre error de escritura
+     * @param outputPath Path of the output CSV file
+     * @param rows       List of flattened rows (each row is a Map of key-value pairs)
+     * @param delimiter  Delimiter character (e.g., ',', ';', or '\t')
+     * @throws IOException if an error occurs while writing the file
      */
     public void writeCsv(String outputPath, List<Map<String, String>> rows, char delimiter) throws IOException {
         if (rows == null || rows.isEmpty()) {
-            throw new IllegalArgumentException("No hay datos para escribir en CSV.");
+            throw new IllegalArgumentException("❌ No data available to write into CSV.");
         }
 
-        // Calcular headers: unión de todas las claves (orden de aparición)
+        // Collect headers: union of all keys (preserve insertion order)
         LinkedHashSet<String> headers = new LinkedHashSet<>();
         for (Map<String, String> row : rows) {
             headers.addAll(row.keySet());
@@ -39,17 +40,19 @@ public class CsvWriter2 {
             Files.createDirectories(parent);
         }
 
-        // Intentar crear un archivo nuevo, lanzar error si ya existe
-        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(out, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
-             CSVWriter writer = new CSVWriter(bufferedWriter, delimiter,
+        // Create file exclusively (error if file already exists)
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(out, StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE_NEW);
+             CSVWriter writer = new CSVWriter(bufferedWriter,
+                     delimiter,
                      CSVWriter.DEFAULT_QUOTE_CHARACTER,
                      CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                      CSVWriter.DEFAULT_LINE_END)) {
 
-            // Escribir encabezados
+            // Write headers first
             writer.writeNext(headerArr);
 
-            // Escribir filas
+            // Write each row
             for (Map<String, String> row : rows) {
                 String[] values = new String[headerArr.length];
                 for (int i = 0; i < headerArr.length; i++) {
@@ -59,7 +62,8 @@ public class CsvWriter2 {
             }
 
         } catch (FileAlreadyExistsException e) {
-            throw new IOException("❌ El archivo ya existe: " + outputPath + ". Por favor, elige otro nombre o elimínalo manualmente.");
+            throw new IOException("❌ File already exists: " + outputPath +
+                    ". Please choose another name or delete it manually.");
         }
     }
 }

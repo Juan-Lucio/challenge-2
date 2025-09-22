@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Orquesta la conversión JSON -> CSV.
+ * JsonToCsvConverter - Orchestrates the conversion from JSON to CSV.
  */
 public class JsonToCsvConverter {
 
@@ -18,9 +18,9 @@ public class JsonToCsvConverter {
     }
 
     /**
-     * Convierte JSON a CSV con delimitador especificado.
+     * Converts JSON file into CSV file with a specified delimiter.
      *
-     * @return número de filas procesadas
+     * @return number of rows processed
      */
     public int convert(String inputPath, String outputPath, char delimiter) throws IOException {
         List<Map<String, String>> data = jsonReader.readAndFlatten(inputPath);

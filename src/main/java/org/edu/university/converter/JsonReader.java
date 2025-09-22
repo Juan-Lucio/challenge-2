@@ -9,33 +9,27 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Lee archivos JSON y devuelve una lista de mapas con claves aplanadas.
+ * JsonReader - Reads JSON files and flattens records into key-value maps.
+ *
+ * Example:
+ * { "user": { "name": "Alice" } }
+ * → { "user.name": "Alice" }
  */
 public class JsonReader {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    /**
-     * Lee y aplan a los registros desde el JSON.
-     * @param inputPath ruta al archivo JSON
-     * @return lista de filas (map key->value) aplanadas
-     * @throws IOException si archivo no encontrado o JSON inválido
-     */
-
+    /** Reads and flattens JSON records */
     public List<Map<String, String>> readAndFlatten(String inputPath) throws IOException {
         File file = new File(inputPath);
-        if (!file.exists()) throw new IOException("Archivo no encontrado: " + inputPath);
+        if (!file.exists()) throw new IOException("File not found: " + inputPath);
 
         JsonNode root = mapper.readTree(file);
-        List<JsonNode> records = new ArrayList<>();
 
-        if (root.isArray()) {
-            root.forEach(records::add);
-        } else if (root.isObject()) {
-            records.add(root);
-        } else {
-            throw new IOException("Formato inválido: el JSON raíz debe ser un objeto o un array de objetos.");
-        }
+        List<JsonNode> records = new ArrayList<>();
+        if (root.isArray()) root.forEach(records::add);
+        else if (root.isObject()) records = Collections.singletonList(root);
+        else throw new IOException("Invalid format: root must be object or array.");
 
         List<Map<String, String>> result = new ArrayList<>();
         for (JsonNode record : records) {
@@ -46,22 +40,19 @@ public class JsonReader {
         return result;
     }
 
-    /**
-     * Aplana recursivamente un JsonNode en el mapa out con claves separadas por puntos.
-     * Arrays se convierten a JSON string.
-     */
+    /** Recursive flattening: nested keys → dot notation */
     private void flattenNode(String prefix, JsonNode node, Map<String, String> out) throws JsonProcessingException {
         if (node.isObject()) {
-            Iterator<Map.Entry<String, JsonNode>> it = node.fields();
-            while (it.hasNext()) {
-                Map.Entry<String, JsonNode> e = it.next();
+            node.fields().forEachRemaining(e -> {
                 String key = prefix.isEmpty() ? e.getKey() : prefix + "." + e.getKey();
-                flattenNode(key, e.getValue(), out);
-            }
+                try {
+                    flattenNode(key, e.getValue(), out);
+                } catch (JsonProcessingException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
         } else if (node.isArray()) {
-            // Convertimos arrays a string JSON para conservar la información
-            String value = mapper.writeValueAsString(node);
-            out.put(prefix, value);
+            out.put(prefix, mapper.writeValueAsString(node));
         } else if (node.isNull()) {
             out.put(prefix, "");
         } else {
