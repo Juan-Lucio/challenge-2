@@ -1,143 +1,221 @@
-# JSON to CSV Converter
+# JSON → CSV Converter
 
-This project provides a **Java-based utility** for converting JSON files into CSV format.  
-It is designed to handle nested JSON structures by **flattening them** into key-value pairs (using dot notation for nested objects).  
-The project is implemented using **Jackson** for JSON parsing and **OpenCSV** for CSV writing.
+**Repositorio / Proyecto:** `org.edu.university.converter`
 
----
+**Descripción breve**
 
-## 📌 Features
-- **Command-Line Interface (CLI)** to specify input, output, delimiter, and interactive mode.
-- **Validation of JSON files** (existence, extension, readability, and syntax).
-- **Flattening of nested JSON objects** into a CSV-friendly structure.
-- **Safe CSV writing** with ordered headers and exclusive file creation.
-- **Configurable delimiters** (`,`, `;`, or `\t`).
-- **Error handling** with clear messages.
+Proyecto Java que convierte archivos JSON (objetos o arreglos) a CSV. Está pensado para manejar estructuras JSON anidadas mediante *flattening* (notación de puntos para claves anidadas) y exportar datos usando OpenCSV.
 
 ---
 
-## 📂 Project Structure
-json-to-csv-converter/
-│── src/main/java/org/edu/university/converter/
-│ ├── MainApp.java # Application entry point (CLI handler)
-│ ├── FileValidator.java # Utility class for validating JSON files
-│ ├── JsonReader.java # Reads and flattens JSON into key-value maps
-│ ├── JsonToCsvConverter.java # Orchestrates JSON → CSV conversion
-│ ├── CsvWriter2.java # Writes flattened data into CSV format
-│
-│── pom.xml # Maven dependencies and build configuration
-│── README.md # Documentation (this file)
+## Contenido del repositorio (archivos clave)
 
----
-                                                                                             
----
+* `MainApp` — Punto de entrada, parseo de argumentos de línea de comandos, prompts interactivos opcionales y ejecución del flujo de validación + conversión.
+* `FileValidator` — Validaciones centralizadas del archivo JSON (existencia, extensión `.json`, accesibilidad, tamaño, sintaxis JSON). Incluye la excepción interna `ValidationException`.
+* `JsonReader` — Lee el JSON y realiza el *flattening* recursivo. Arrays se serializan como JSON en una sola columna; valores nulos se convierten en cadena vacía.
+* `CsvWriter2` — Escribe datos a CSV usando OpenCSV; recopila cabeceras (union de todas las claves) preservando el orden de inserción y crea el archivo de manera segura (`CREATE_NEW` para evitar sobrescrituras accidental).
+* `JsonToCsvConverter` — Orquestador: conecta `JsonReader` y `CsvWriter2` para realizar la conversión.
+* Tests:
 
-## ⚙️ Requirements
-
-- **Java 17+**  
-- **Maven 3.8+**  
-- Internet connection to download dependencies.
-
-Dependencies:
-- `com.fasterxml.jackson.core:jackson-databind` → for JSON parsing.  
-- `com.opencsv:opencsv` → for CSV writing.  
+  * `CsvWriterTest` — Genera múltiples archivos CSV de prueba y valida su creación.
+  * `JsonReaderTest` — Valida el *flattening* y lectura de JSON de ejemplo.
+  * `JsonToCsvConverterTest` — Prueba la conversión de JSON a CSV, valida filas y salida de archivo.
 
 ---
 
-## ▶️ How to Run
+## Requisitos / Dependencias (Maven)
 
-### 1. Clone the Repository
+Añade estas dependencias en tu `pom.xml` (ejemplo):
+
+```xml
+<dependencies>
+  <!-- Jackson para parseo JSON -->
+  <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.15.2</version>
+  </dependency>
+
+  <!-- OpenCSV para escritura segura de CSV -->
+  <dependency>
+    <groupId>com.opencsv</groupId>
+    <artifactId>opencsv</artifactId>
+    <version>5.7.1</version>
+  </dependency>
+
+  <!-- JUnit 5 para pruebas -->
+  <dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.10.0</version>
+    <scope>test</scope>
+  </dependency>
+</dependencies>
+```
+
+> Nota: ajusta versiones según el ecosistema de tu proyecto.
+
+---
+
+## Uso (línea de comandos)
+
+Compilar y ejecutar (Maven):
+
 ```bash
-git clone https://github.com/<your-username>/json-to-csv-converter.git
-cd json-to-csv-converter
----
-
-Build with Maven
 mvn clean package
+java -jar target/your-artifact.jar --input=datos/sample.json --output=exports/result.csv --delimiter=,
+```
 
----
-Run the Application
-java -cp target/json-to-csv-converter-1.0-SNAPSHOT.jar org.edu.university.converter.MainApp --input=data/input.json --output=data/output.csv --delimiter=;
+Opciones y comportamiento:
 
----
+* `--input=<path>`: ruta al archivo JSON de entrada. Si no se especifica, se puede usar el primer argumento posicional.
+* `--output=<path>`: ruta al CSV de salida (por defecto `exports/output.csv`).
+* `--delimiter=<char>`: delimitador CSV (ej: `,` `;` `\t`).
+* `--no-prompt`: si se pasa, deshabilita la interacción por consola.
 
-
-Optional Flags
-
---input=<path> → Path to input JSON file (required).
-
---output=<path> → Path to output CSV file (default: output.csv).
-
---delimiter=<char> → Separator (default: ,; options: ,, ;, \t).
-
---no-prompt → Disable interactive mode.
-
-Example:
-
-java -cp target/json-to-csv-converter-1.0-SNAPSHOT.jar org.edu.university.converter.MainApp --input=sample.json --output=result.csv --delimiter=,
----
-📘 JavaDoc Documentation
----
-Each class and method in this project includes JavaDoc comments describing:
-
-The purpose of the class/method.
-
-Parameters with explanations.
-
-Return values and possible exceptions.
-
-You can generate JavaDoc with:
-
-mvn javadoc:javadoc
-
-
-The documentation will be available in:
-
-target/site/apidocs/index.html
-
-👥 GitHub Repository Setup
-
-Name your repository:
-
-json-to-csv-converter
-
-
-Include:
-
-All Java source code under src/main/java/.
-
-This README.md.
-
-A pom.xml file with dependencies.
-
-Grant access permissions so the Digital NAO team can review your work.
----
-✅ Deliverables for Sprint
----                                                                                             
-Source Code with JavaDoc included.
-
-Executable JAR built with Maven.
-
-README.md with usage instructions.
-
-JavaDoc documentation generated in /target/site/apidocs/.
----
-📝 Notes
----
-The converter does not overwrite existing CSV files by default. If the output file already exists, the program will throw an error.
-
-Arrays inside JSON are preserved as raw JSON strings for data integrity.
-
-Future improvements may include support for custom overwrite mode and stream-based conversion for large files.
-
+Si no se pasan argumentos y no se usa `--no-prompt`, la aplicación pregunta interactivamente por rutas alternativas.
 
 ---
 
+## Formato de entrada y reglas de *flattening*
 
+**Entrada válida:** archivo `.json` cuyo root sea un objeto (object) o un arreglo (array) de objetos.
 
+**Reglas de aplanado (flattening):**
 
-                                                                                             
+* Objetos anidados → claves en notación de puntos. Ejemplo:
 
+```json
+{ "user": { "name": "Alice" } }
+```
+
+→ `user.name, Alice`
+
+* Arrays → se serializa el array completo en la columna correspondiente como texto JSON (ej: `["a","b"]`).
+* Valores nulos → se transforman a cadena vacía `""`.
+* Cabeceras del CSV → unión de todas las claves encontradas en los registros, respetando orden de descubrimiento (LinkedHashSet).
+
+---
+
+## Comportamiento del escritor CSV (`CsvWriter2`)
+
+* Escribe headers primero.
+* Crea el directorio padre si es necesario.
+* Utiliza `StandardOpenOption.CREATE_NEW` para evitar sobrescribir archivos existentes. Si el archivo ya existe, lanza `IOException` con mensaje claro.
+* Codificación UTF-8.
+* Permite elegir delimitador.
+
+---
+
+## Validación de archivo (`FileValidator`)
+
+Validaciones principales:
+
+1. Ruta no nula ni vacía.
+2. Archivo existe y es regular (no directorio).
+3. Extensión `.json` (insensible a mayúsculas).
+4. Archivo legible y no vacío.
+5. Sintaxis JSON válida y root `object` o `array`.
+
+Métodos importantes:
+
+* `isValidJsonFile(String path)` → comprobación rápida (existencia + extensión).
+* `validateJsonFile(String path)` → validación completa con mensajes en `System.err`.
+* `validateOrThrow(String path)` → lanza `ValidationException` si no pasa validación.
+
+---
+
+## Tests (cómo ejecutarlos y qué verifican)
+
+Ejecutar tests con Maven:
+
+```bash
+mvn test
+```
+
+### Descripción de tests incluidos
+
+* `CsvWriterTest`
+
+  * Crea 10 archivos CSV de prueba (`target/test-csv-writer-1.csv` ... `-10.csv`).
+  * Verifica existencia y tamaño > 0.
+  * Útil para comprobar que OpenCSV y la escritura en disco funcionan correctamente.
+
+* `JsonReaderTest`
+
+  * Crea un JSON de ejemplo en `target/test-sample.json`.
+  * Llama a `JsonReader.readAndFlatten(...)`.
+  * Verifica que se obtienen 2 registros y que campos aplanados (ej. `publication.title`) contienen los valores esperados.
+
+* `JsonToCsvConverterTest`
+
+  * Crea un JSON temporal y ejecuta `JsonToCsvConverter.convert(...)`.
+  * Valida que el CSV de salida existe, no está vacío y que el número de filas procesadas coincide con el esperado.
+
+> Recomendación: Ejecuta la suite de tests en un entorno CI (GitHub Actions, GitLab CI, Jenkins) para asegurar integridad en cada push.
+
+---
+
+## Ejemplos
+
+### JSON de ejemplo
+
+```json
+[
+  {
+    "id": 1,
+    "author": "Beatriz Solórzano",
+    "publication": { "title": "Data Integration", "year": 2023 }
+  },
+  {
+    "id": 2,
+    "author": "Juan Pérez",
+    "publication": { "title": "Automation Reports", "year": 2024 }
+  }
+]
+```
+
+### CSV esperado (simplificado)
+
+```
+id,author,publication.title,publication.year
+1,Beatriz Solórzano,Data Integration,2023
+2,Juan Pérez,Automation Reports,2024
+```
+
+---
+
+## Manejo de errores y mensajes
+
+* Mensajes amigables en consola para condiciones comunes (archivo no encontrado, sintaxis inválida, archivo ya existe, etc.).
+* En `MainApp`, la excepción se captura y se imprime `e.getMessage()` + stacktrace para depuración.
+* `CsvWriter2` lanza `IOException` con mensaje claro cuando el archivo ya existe.
+
+---
+
+## Buenas prácticas y puntos clave (resumen rápido)
+
+* Asegúrate de que el JSON tenga root `object` o `array`.
+* Revisar encoding: UTF-8 por defecto; evita archivos con codificación distinta.
+* Si trabajas con arrays dentro del JSON y los quieres separar en columnas individuales, extiende `JsonReader` para expandir arrays en múltiples columnas (actualmente se serializan como JSON en una sola celda).
+* Mantén el orden de cabeceras consistente: `CsvWriter2` usa `LinkedHashSet` para preservar orden de aparición.
+* `CREATE_NEW` protege contra sobrescritura accidental; si quieres sobrescribir, cambia la opción de apertura de archivo.
+
+---
+
+## Mejoras sugeridas (TODO)
+
+* Añadir flag `--force` para sobrescribir archivos existentes cuando sea necesario.
+* Permitir plantillas de cabeceras o reordenamiento manual de columnas.
+* Añadir soporte para convertir arrays a filas separadas (explosión / normalización de arrays).
+* Logging con SLF4J/Logback en lugar de `System.out/err`.
+* Añadir cobertura de tests para casos límites (campos vacíos, tipos mixtos, arrays muy grandes).
+
+---
+
+## Conclusión
+
+Este proyecto provee una solución simple y robusta para transformar archivos JSON a CSV manteniendo integridad en codificación y estructura. Está pensado como una utilidad reutilizable, con validación previa para evitar errores comunes y tests automatizados que verifican los componentes principales (`JsonReader`, `CsvWriter2` y el orquestador `JsonToCsvConverter`). Es una buena base para ampliar transformaciones más avanzadas de datos (normalización de arrays, mapeos personalizados, perfiles de columna, etc.).
 
 
 
