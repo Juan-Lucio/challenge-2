@@ -203,28 +203,61 @@ id,author,publication.title,publication.year
 
 ---
 
-## Mejoras sugeridas (TODO)
+Interfaz gráfica — JsonToCsvGui (Java Swing)
 
-* Añadir flag `--force` para sobrescribir archivos existentes cuando sea necesario.
-* Permitir plantillas de cabeceras o reordenamiento manual de columnas.
-* Añadir soporte para convertir arrays a filas separadas (explosión / normalización de arrays).
-* Logging con SLF4J/Logback en lugar de `System.out/err`.
-* Añadir cobertura de tests para casos límites (campos vacíos, tipos mixtos, arrays muy grandes).
+Se ha añadido una interfaz gráfica de usuario (GUI) basada en Java Swing que integra y adapta el flujo de trabajo ya descrito (FileValidator, JsonReader, CsvWriter2, JsonToCsvConverter). Esta sección documenta el uso, la integración y consideraciones específicas.
+Ubicación recomendada
 
----
+Coloca la clase en tu proyecto con la siguiente ruta de paquete y archivo:
 
-## Conclusión
+src/main/java/org/edu/university/converter/ui/JsonToCsvGui.java
+Objetivo
 
-Este proyecto provee una solución simple y robusta para transformar archivos JSON a CSV manteniendo integridad en codificación y estructura. Está pensado como una utilidad reutilizable, con validación previa para evitar errores comunes y tests automatizados que verifican los componentes principales (`JsonReader`, `CsvWriter2` y el orquestador `JsonToCsvConverter`). Es una buena base para ampliar transformaciones más avanzadas de datos (normalización de arrays, mapeos personalizados, perfiles de columna, etc.).
+Proveer una UI sencilla e interactiva para:
 
+Seleccionar el archivo JSON de entrada.
 
+Definir o seleccionar el archivo CSV de salida.
 
+Elegir el delimitador (, ; o ).
+
+Habilitar sobrescritura del archivo de salida de forma segura.
+
+Visualizar logs en tiempo de ejecución y progreso de la conversión.
+
+Características clave
+
+Integración directa: llama a FileValidator para validación rápida/completa y a JsonToCsvConverter para ejecutar la conversión.
+
+Protección contra sobrescritura: CsvWriter2 usa CREATE_NEW, por lo que la GUI ofrece una opción Overwrite if exists que, si está marcada, elimina el archivo existente antes de convertir (permitiendo así que CsvWriter2 cree el archivo limpio). 
+Si no está marcada, pregunta al usuario antes de sobrescribir.
+
+Ejecución no bloqueante: la conversión se ejecuta en un SwingWorker para mantener la interfaz responsiva; la barra de progreso es indicadora indeterminate mientras se procesa.
+
+Sugerencia automática de salida: al seleccionar un archivo JSON, la GUI sugiere automáticamente una ruta de salida en exports/<nombre>.csv si no se ha especificado una ruta previa.
+
+Campo de delimitador: acepta la primera tecla como delimitador. Si el usuario escribe la GUI lo interpreta como tabulación.
+
+Área de logs: muestra mensajes de progreso, errores y confirmaciones en tiempo real.
+
+Uso (ejecutar la GUI)
+
+Compila el proyecto y ejecuta la clase JsonToCsvGui. Ejemplo con Maven:
+
+mvn clean package
+mvn -Dexec.mainClass="org.edu.university.converter.ui.JsonToCsvGui" exec:java
+
+O si usas un JAR ejecutable (incluyendo dependencias):
+
+java -cp target/your-fat-jar.jar org.edu.university.converter.ui.JsonToCsvGui
+
+También la clase main acepta argumentos opcionales: java ... JsonToCsvGui <input.json> <output.csv> para prellenar los campos.
                                                                                              
 
-                                                                                             
-
-
-
+Conclusión
+Este proyecto provee una solución simple y robusta para transformar archivos JSON a CSV manteniendo integridad en codificación y estructura. 
+Está pensado como una utilidad reutilizable, con validación previa para evitar errores comunes y tests automatizados que verifican los componentes principales
+(JsonReader, CsvWriter2 y el orquestador JsonToCsvConverter). Es una buena base para ampliar transformaciones más avanzadas de datos (normalización de arrays, mapeos personalizados, perfiles de columna, etc.).
                                                                                              
 
                                                                                              
